@@ -18,10 +18,15 @@ passport.use(
           user = await User.create({
             githubId: profile.id,
             username: profile.username,
-            avatar: profile.photos[0].value,
+            avatar: profile.photos[0]?.value || "",
             email: profile.emails?.[0]?.value || "",
+            accessToken: accessToken, // Store access token
           });
+        } else {
+          user.accessToken = accessToken; // Update access token
+          await user.save();
         }
+
         return done(null, user);
       } catch (error) {
         return done(error, null);
@@ -30,10 +35,12 @@ passport.use(
   )
 );
 
+// ✅ Ensure the user ID is properly serialized
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id.toString()); // Convert ObjectId to string
 });
 
+// ✅ Ensure the user is properly deserialized
 passport.deserializeUser(async (id, done) => {
   try {
     const user = await User.findById(id);
