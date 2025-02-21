@@ -11,7 +11,7 @@ const router = express.Router();
 
 router.get("/github", githubAuth);
 router.get("/github/callback", githubAuthCallback, (req, res) => {
-  res.redirect("/profile"); // TODO: Redirect to a frontend profile page after login
+  res.redirect("/profile");
 });
 router.get("/user", isAuthenticated, getCurrentUser);
 router.get("/logout", logoutUser);
