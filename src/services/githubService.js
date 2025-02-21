@@ -40,20 +40,33 @@ const fetchRepoContents = async (owner, repo, path = "", accessToken) => {
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
     const response = await axios.get(url, {
       headers: { Authorization: `Bearer ${accessToken}` },
+      Accept: "application/vnd.github.v3+json",
     });
 
     let files = [];
 
     for (const item of response.data) {
       if (item.type === "file") {
-        // Fetch file content
-        const fileContent = await axios.get(item.download_url);
+        const fileResponse = await axios.get(item.download_url, {
+          responseType: "arraybuffer",
+        });
+        const fileBuffer = Buffer.from(fileResponse.data);
+
+        // Detect if it's a binary file
+        const isBinary = fileBuffer.includes(0);
+        if (isBinary) {
+          console.log(`Binary file detected: ${item.path}`);
+        }
+
+        // TODO: Modify backslash "\n" in response
         files.push({
           path: item.path,
-          content: fileContent.data,
+          content: isBinary
+            ? fileBuffer.toString("base64")
+            : fileBuffer.toString("utf-8"),
+          isBinary,
         });
       } else if (item.type === "dir") {
-        // Recursively fetch directory contents
         const subFiles = await fetchRepoContents(
           owner,
           repo,
