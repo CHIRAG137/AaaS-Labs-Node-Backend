@@ -8,6 +8,7 @@ require("./config/passport");
 
 const authRoutes = require("./routes/authRoutes");
 const githubRoutes = require("./routes/githubRoutes");
+const codeRoutes = require("./routes/codeRoutes");
 
 const app = express();
 
@@ -36,5 +37,6 @@ app.use(passport.session());
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/github", githubRoutes);
+app.use("/api/code", codeRoutes);
 
 module.exports = app;
