@@ -3,9 +3,10 @@ const authService = require("../services/authService");
 
 /**
  * GitHub authentication route handler
+ * Adding "repo" in scopes help in finding the private repos as well
  * @route GET /api/auth/github
  */
-exports.githubAuth = passport.authenticate("github", { scope: ["user:email"] });
+exports.githubAuth = passport.authenticate("github", { scope: ["user:email", "repo"] });
 
 /**
  * GitHub callback handler

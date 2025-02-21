@@ -18,7 +18,11 @@ exports.getUserRepos = async (userId) => {
       Authorization: `Bearer ${user.accessToken}`,
       Accept: "application/vnd.github.v3+json",
     },
+    params: {
+      visibility: "all", // ✅ Fetch both public & private repositories
+      per_page: 100,
+    },
   });
 
-  return response.data; // Return repositories list
+  return response.data;
 };
