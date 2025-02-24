@@ -6,5 +6,5 @@ const User = require("../models/User");
  * @returns {Promise<Object>} - User object
  */
 exports.getUserById = async (userId) => {
-  return await User.findById(userId);
+  return await User.findById(userId).select("-accessToken");
 };

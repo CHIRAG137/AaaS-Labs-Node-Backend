@@ -6,7 +6,7 @@ const User = require("../models/User");
  * @param {string} userId - MongoDB user ID
  * @returns {Promise<Array>} - List of repositories
  */
-exports.getUserRepos = async (userId) => {
+const getUserRepos = async (userId) => {
   const user = await User.findById(userId);
 
   if (!user || !user.accessToken) {
@@ -87,4 +87,4 @@ const fetchRepoContents = async (owner, repo, path = "", accessToken) => {
   }
 };
 
-module.exports = { fetchRepoContents };
+module.exports = { fetchRepoContents, getUserRepos };
