@@ -76,6 +76,96 @@ We used a combination of **backend, frontend, security, and automation tools**:
 - **Automating No-Code Workflows:** Designing a **flexible and scalable** security automation framework.
 - **Generating Actionable Flowcharts:** Ensuring AI-generated **step-by-step remediation guides** are clear and effective. -**Parallel Processing/Turn Around Time:** Reducing the GoBuster Turn Around time from 15 mins to less than 5 mins.
 
+## Node.js Backend Setup
+
+### 📌 Prerequisites
+Ensure you have the following installed on your system:
+- [Node.js](https://nodejs.org/) (v16 or later recommended)
+- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/)
+- [MongoDB](https://www.mongodb.com/)
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
+```sh
+git clone https://github.com/CHIRAG137/AaaS-Labs-Node-Backend.git
+cd AaaS-Labs-Node-Backend
+```
+
+### 2️⃣ Install Dependencies
+Using npm:
+```sh
+npm install
+```
+Using yarn:
+```sh
+yarn install
+```
+
+### 3️⃣ Environment Variables
+Create a `.env` file in the root directory and add the necessary configurations:
+```ini
+PORT=3000
+MONGO_URI=mongo_uri
+GITHUB_CLIENT_ID=github_client_id
+GITHUB_CLIENT_SECRET=github_client_secret
+SESSION_SECRET=session_secret
+OPENAI_API_KEY=open_ai_api_key
+```
+
+### 4️⃣ Start the Development Server
+Using npm:
+```sh
+npm run dev
+```
+Using yarn:
+```sh
+yarn dev
+```
+
+The backend will run at `http://localhost:3000`.
+
+## 🛠 Project Structure
+```
+backend/
+│── src/
+│   ├── controllers/       # API controllers
+│   ├── routes/            # Express routes
+│   ├── services/          # Business logic
+│   ├── middlewares/       # Authentication & validation
+│   ├── models/            # Mongoose models
+│   ├── config/            # Configuration files
+│── .env                   # Environment variables
+│── package.json           # Dependencies & scripts
+```
+
+### 🖥 API Endpoints
+
+### 🔑 Authentication
+| Method | Endpoint              | Description                 |
+|--------|----------------------|-----------------------------|
+| GET    | `/api/auth/github`   | Initiates GitHub OAuth      |
+| GET    | `/api/auth/callback` | Handles GitHub OAuth        |
+| GET    | `/api/auth/user`     | Fetch logged-in user info   |
+| GET    | `/api/auth/logout`   | Logout user                 |
+
+### 🔎 GitHub Repository Management
+| Method | Endpoint                     | Description                         |
+|--------|------------------------------|-------------------------------------|
+| GET    | `/api/github/repos`         | Fetch user repositories            |
+| GET    | `/api/github/repo/:owner/:repo` | Fetch repository code             |
+
+### 🔒 Security Scanning
+| Method | Endpoint                  | Description                           |
+|--------|--------------------------|---------------------------------------|
+| POST   | `/api/code/security`     | Analyze code for vulnerabilities     |
+| POST   | `/api/code/query`        | Query insights about the code        |
+
+### 🔄 Flowchart Generation
+| Method | Endpoint                | Description                           |
+|--------|-------------------------|---------------------------------------|
+| POST   | `/api/flowchart/generate` | Generate security remediation flowchart |
+
 ## Conclusion
 This project **empowers developers, security teams, and organizations** by providing:
 ✔️: **Real-time vulnerability detection**
